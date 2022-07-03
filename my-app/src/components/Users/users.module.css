@@ -1,0 +1,14 @@
+
+.selectedPage{
+    font-weight: bold;
+    color: brown;
+
+}
+.userPhoto {
+    width: 50px;
+    height: 50px;
+}
+.changePage {
+    cursor: pointer;
+
+}
