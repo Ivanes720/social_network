@@ -7,10 +7,6 @@ import {
 } from "../../redux/reducerUsers";
 import Preloader from "../common/preloader/Preloader";
 import Users from "./Users";
-import { useParams } from 'react-router-dom';
-
-
-
 
 
 class UsersContainer extends React.Component {
@@ -31,7 +27,7 @@ class UsersContainer extends React.Component {
     this.props.toogleIsFetching(true);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.pageNumber}&count=${this.props.pageSize}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`
       )
       .then((response) => {
         this.props.toogleIsFetching(false);
