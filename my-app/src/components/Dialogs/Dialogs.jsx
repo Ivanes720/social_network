@@ -15,7 +15,7 @@ let state=props.dialogsPage;
 
 
   let onSendMessageClick = () =>  {
-    props.sendMessage();
+    props.sendMessage(newMessageBody);
   };
 
   let onNewMessageChange = (e) => {

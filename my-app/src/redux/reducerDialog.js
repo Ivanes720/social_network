@@ -31,7 +31,7 @@ const reducerDialog=(state=initialState, action)=>{
                       return {
             ...state,
             newMessageBody: "",
-            messageData:[...state.messageData, { message: body, id: "22"}]
+            messageData:[...state.messageData, { message: body, id: "6"}]
            
           };
         
@@ -40,7 +40,7 @@ const reducerDialog=(state=initialState, action)=>{
 };
 };
 export const  sendMessageCreator=()=>({
-    type: SEND_MESSAGE
+    type: SEND_MESSAGE,
 });
 export const  updateNewMessageBodyCreator=(body)=>({
 type: UPDATE_NEW_MESSAGE_BODY,
