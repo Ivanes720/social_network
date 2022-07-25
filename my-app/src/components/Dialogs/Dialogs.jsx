@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import { Redirect } from 'react-router-dom';
 
 
 const Dialogs = (props) => {
@@ -10,10 +11,6 @@ let state=props.dialogsPage;
   let dialogsElements = state.dialogData.map( d => <DialogItem name={d.name} key={d.id} id={d.id} />  );
   let messagesElements = state.messageData.map( m => <Message message={m.message} id={m.id} key={m.id}/> );
   let newMessageBody = state.newMessageBody;
-
-
-
-
   let onSendMessageClick = () =>  {
     props.sendMessage(newMessageBody);
   };
@@ -23,6 +20,8 @@ let state=props.dialogsPage;
     props.updateNewMessageBody(body);
   };
 
+
+    
   return (
     <div className={classes.dialogs}>
       <div className={classes.dialogsItems}>

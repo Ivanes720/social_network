@@ -1,28 +1,35 @@
 import React from "react";
 import "./App.css";
-import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import { Route } from "react-router-dom";
+import Login from "../src/components/Login/Login"
+import { Route,  Routes } from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileInfo/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 const App = (props) => {
   return (
     <div className="app-wrapper">
-      <Header />
+      <HeaderContainer />
       <Navbar />
       <div className="app-wrapper-content">
-        <Route path="/dialogs" render={() => <DialogsContainer store={props.store} />}/>
-        <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+      <Routes>
+        <Route
+          path="/dialogs"
+          to={() => <DialogsContainer store={props.store} />}
+        />
+        <Route path="/profile/:userId?" to={() => <ProfileContainer />} />
 
-        <Route path="/users" render={() => <UsersContainer />} />
+        <Route path="/users" to={() => <UsersContainer />} />
+        <Route path="/login" to={() => <Login/>} />
 
-        <Route path="/news" component={News} />
-        <Route path="/music" component={Music} />
-        <Route path="/Settings" component={Settings} />
+        <Route path="/news" to={News} />
+        <Route path="/music" element={Music} />
+        <Route path="/Settings" element={Settings} />
+        </Routes>
       </div>
     </div>
   );
