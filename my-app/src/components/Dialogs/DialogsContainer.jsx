@@ -1,5 +1,4 @@
 import {
-  updateNewMessageBodyCreator,
   sendMessageCreator,
 } from "../../redux/reducerDialog";
 import Dialogs from "./Dialogs";
@@ -11,27 +10,15 @@ import {compose} from "redux";
 const mapStateToProps = (state) => {
   return {
     dialogsPage: state.dialogsPage,
-    isAuth: state.auth.isAuth
   };
 };
-
-const mapDispatchToProps = (dispatch) => {
+let mapDispatchToProps = (dispatch) => {
   return {
-
-     sendMessage: (body) => {
-      dispatch(sendMessageCreator(body));
-    },
-    
-    updateNewMessageBody: (body) => {
-      dispatch(updateNewMessageBodyCreator(body));
-    },
-    
-   
-  };
-};
-
-
-
+      sendMessage: (newMessageBody) => {
+          dispatch(sendMessageCreator(newMessageBody));
+      }
+  }
+}
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),

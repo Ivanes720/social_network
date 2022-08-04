@@ -1,8 +1,6 @@
-const UPDATE_NEW_MESSAGE_BODY ="UPDATE_NEW_MESSAGE_BODY"
-const SEND_MESSAGE ="SEND_MESSAGE";
+const SEND_MESSAGE = "SEND_MESSAGE";
 
-
-let initialState={
+let initialState = {
   messageData: [
     { message: "Yo", id: "1" },
     { message: "sraka", id: "2" },
@@ -15,39 +13,23 @@ let initialState={
     { name: "Tymur", id: "3" },
     { name: "Sraka", id: "4" },
   ],
-  newMessageBody: ""
 };
-const reducerDialog=(state=initialState, action)=>{
-      switch  (action.type) {
-       case UPDATE_NEW_MESSAGE_BODY: 
+const reducerDialog = (state = initialState, action) => {
+  switch (action.type) {
+    case SEND_MESSAGE:
+      let body = action.newMessageBody;
+      return {
+        ...state,
+        messageData: [...state.messageData, { message: body, id: "6" }],
+      };
 
-               return {
-                ...state,
-                newMessageBody: action.body
-              };
-       
-           case SEND_MESSAGE:
-             let body =state.newMessageBody;
-                      return {
-            ...state,
-            newMessageBody: "",
-            messageData:[...state.messageData, { message: body, id: "6"}]
-           
-          };
-        
-          default:
-            return state;
+    default:
+      return state;
+  }
 };
-};
-export const  sendMessageCreator=()=>({
-    type: SEND_MESSAGE,
+export const sendMessageCreator = (newMessageBody) => ({
+  type: SEND_MESSAGE,
+  newMessageBody,
 });
-export const  updateNewMessageBodyCreator=(body)=>({
-type: UPDATE_NEW_MESSAGE_BODY,
-body: body
-});
-
-
-
 
 export default reducerDialog;

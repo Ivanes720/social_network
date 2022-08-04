@@ -1,61 +1,130 @@
 import React from 'react';
 import {Formik, Form, Field, ErrorMessage} from "formik";
+import * as Yup from "yup";
+import {ErrorMessageWrapper, validateEmailField} from "../../components/utils/validators/validators";
+import {connect} from "react-redux";
+import {login} from "../../redux/authReducer";
+import {Navigate} from "react-router-dom";
+import classes from '../../components/utils/validators/ErrorMessage.module.css';
 
-const Login = () => {
+
+const loginPage = (props) => {
+
+   const validationSchema = Yup.object().shape( {
+
+      password: Yup.string()
+         .min( 2, "Must be longer than 2 characters" )
+         .max( 15, "Must be shorter than 15 characters" )
+         .required( "Required 2" )
+   } );
+
+   if (props.isAuth) {
+       <Navigate to='/profile' />
+   }
 
    return (
       <div>
-         <h2> Login </h2>
+         <h2> ... Login page </h2>
 
          <Formik
             initialValues={{
-               email: "",
-               password: "",
-               rememberMe: false
+               email: '',
+               password: '',
+               rememberMe: false,
+               general: ''
             }}
-            //validate={validateLoginForm}
-            //validationSchema={validationSchemaLoginForm}
-            onSubmit={(values) => {
-               console.log( values )
+            validate={validateEmailField}
+            validationSchema={validationSchema}
+
+            onSubmit={(values, bagWithMethods) => {
+
+               let {setStatus, setFieldValue, setSubmitting} = bagWithMethods;
+
+               props.login(
+                  values.email,
+                  values.password,
+                  values.rememberMe,
+                  setStatus,
+                  setFieldValue,
+                  setSubmitting );
+
             }}
          >
-            {() => (
-               <Form>
-                  <div>
-                     <Field
-                        name={'email'}
-                        type={'text'}
-                        placeholder={'e-mail'} />
-                  </div>
-                  <ErrorMessage name="email" component="div" />
+            {props => {
 
-                  <div>
-                     <Field
-                        name={'password'}
-                        type={'password'}
-                        placeholder={'password'} />
-                  </div>
-                  <ErrorMessage name="password" component="div" />
+               let {status, values, isSubmitting} = props;
+              
 
-                  <div>
-                     <Field
-                        type={'checkbox'}
-                        name={'rememberMe'}
-                        id='rememberMe' />
-                     <label htmlFor={'rememberMe'}> remember me </label>
-                  </div>
+               return (
+                  <Form>
 
-                  <button type={'submit'}>Login</button>
-               </Form>
-            )}
+                     <div>
+
+                        {values.general &&
+                        <div>
+                           _.{values.general} - with setFieldValue
+                        </div>}
+
+                        {status &&
+                        <div className={classes.validationErrorMessage}>
+                           ..{status} - with setStatus
+                        </div>}
+
+                        <div>
+                           <Field
+                              name={'email'}
+                              type={'text'}
+                              placeholder={'e-mail'} />
+                        </div>
+                        <ErrorMessage name="email">
+                           {ErrorMessageWrapper}
+                        </ErrorMessage>
+
+                        <div>
+                           <Field
+                              name={'password'}
+                              type={'password'}
+                              placeholder={'password'} />
+                        </div>
+                        <ErrorMessage name="password">
+                           {ErrorMessageWrapper}
+                        </ErrorMessage>
+
+                        <div>
+                           <Field
+                              type={'checkbox'}
+                              name={'rememberMe'}
+                              id='rememberMe' />
+                           <label htmlFor={'rememberMe'}> remember me </label>
+                        </div>
+
+                        <button type={'submit'}
+                                disabled={isSubmitting}
+                        >{isSubmitting ? "Please wait..." : "Submit"}</button>
+
+                     </div>
+
+
+                  </Form>
+               )
+            }
+            }
          </Formik>
 
          <div>
             ...
          </div>
 
+
       </div>
    )
 }
 
-export default Login;
+
+const mapStateToProps = (state) => (
+   {isAuth: state.auth.isAuth}
+);
+
+const LoginPageConnect = connect( mapStateToProps, {login} )( loginPage );
+
+export default LoginPageConnect;
