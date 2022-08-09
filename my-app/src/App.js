@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from 'react';
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
@@ -10,8 +10,18 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Preloader from "./components/common/preloader/Preloader";
+import {initializeApp} from "../src/redux/appReducer";
+import {connect} from "react-redux";
 
-const App = (props) => {
+class App extends Component  {
+  componentDidMount() {
+    this.props.initializeApp();
+} 
+render (props)  {
+  if (!this.props.initialized) {
+    return <Preloader/>
+}
   return (
     <div className="app-wrapper">
       <HeaderContainer />
@@ -20,7 +30,7 @@ const App = (props) => {
         <Routes>
           <Route
             path="/dialogs"
-            element={<DialogsContainer store={props.store} />}
+            element={<DialogsContainer />}
           ></Route>
           <Route path="/profile/:userId" element={<ProfileContainer />}></Route>
           <Route path="/profile" element={<ProfileContainer />}></Route>
@@ -34,7 +44,15 @@ const App = (props) => {
         </Routes>
       </div>
     </div>
-  );
+  );}
 };
 
-export default App;
+
+let mapStateToProps = (state) => ({
+
+  initialized: state.app.initialized
+
+})
+
+
+export default connect( mapStateToProps, {initializeApp} )( App );

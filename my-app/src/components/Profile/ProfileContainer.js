@@ -11,8 +11,8 @@ class ProfileContainer extends React.Component {
   componentDidMount() {
     let { userId } = this.props.match.params
       if (!userId) {
-          userId = 6826;
-      }
+          userId = this.props.authorizedId;
+                }
       this.props.getUsersProfile(userId);
       this.props.getStatus(userId)
   };
@@ -21,7 +21,10 @@ class ProfileContainer extends React.Component {
   render() {
     
       return (
-          <Profile {...this.props} status={this.props.status} updateStatus={this.props.updateStatus}/>
+          <Profile {...this.props} 
+          profile={this.props.profile}
+          status={this.props.status} 
+          updateStatus={this.props.updateStatus}/>
       )
   }
 }
@@ -29,9 +32,14 @@ class ProfileContainer extends React.Component {
 
 
 
-let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
-});
+let mapStateToProps = (state) => {
+    return ({
+        profile: state.profilePage.profile,
+        status: state.profilePage.status,
+        authorizedUserId: state.auth.userId,
+        isAuth: state.auth.isAuth
+    })
+}
 
 export default compose(
     connect(mapStateToProps, {getStatus, getUsersProfile, updateStatus}),

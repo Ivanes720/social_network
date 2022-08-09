@@ -9,7 +9,7 @@ import classes from '../../components/utils/validators/ErrorMessage.module.css';
 
 
 const loginPage = (props) => {
-
+console.log(props)
    const validationSchema = Yup.object().shape( {
 
       password: Yup.string()
@@ -18,8 +18,8 @@ const loginPage = (props) => {
          .required( "Required 2" )
    } );
 
-   if (props.isAuth) {
-       <Navigate to='/profile' />
+   if (props.auth.isAuth) {
+     return  <Navigate to='/profile' />
    }
 
    return (
@@ -47,8 +47,10 @@ const loginPage = (props) => {
                   setStatus,
                   setFieldValue,
                   setSubmitting );
+                  console.log(props)
 
             }}
+            
          >
             {props => {
 
@@ -118,11 +120,12 @@ const loginPage = (props) => {
 
       </div>
    )
+
 }
 
 
 const mapStateToProps = (state) => (
-   {isAuth: state.auth.isAuth}
+   {auth: state.auth}
 );
 
 const LoginPageConnect = connect( mapStateToProps, {login} )( loginPage );
