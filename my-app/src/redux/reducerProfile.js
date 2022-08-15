@@ -2,7 +2,7 @@ import { profileAPI, usersApi } from "../API/api";
 const ADD_POST = "ADD-POST";
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 const SET_STATUS = "SET_STATUS";
-
+const DELETE_POST = "DELETE_POST";
 let initialState = {
   postData: [
     { id: 1, message: "Hi, how  are you?", likesCount: 0 },
@@ -38,6 +38,8 @@ const reducerProfile = (state = initialState, action) => {
     case SET_USERS_PROFILE: {
       return { ...state, profile: action.profile };
     }
+    case DELETE_POST:
+      return {...state, posts: state.posts.filter(p => p.id != action.postId)}
     default:
       return state;
   }
@@ -76,4 +78,5 @@ export const updateStatus = (status) => (dispatch) => {
           }
       });
 }
+export const deletePost = (postId) => ({type: DELETE_POST, postId})
 export default reducerProfile;
