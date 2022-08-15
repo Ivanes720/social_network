@@ -9,7 +9,7 @@ import classes from '../../components/utils/validators/ErrorMessage.module.css';
 
 
 const loginPage = (props) => {
-console.log(props)
+
    const validationSchema = Yup.object().shape( {
 
       password: Yup.string()
