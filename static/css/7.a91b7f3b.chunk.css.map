@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/utils/validators/ErrorMessage.module.css"],"names":[],"mappings":"AAAA,4CACI,aAIH","file":"7.a91b7f3b.chunk.css","sourcesContent":[".validationErrorMessage {\r\n    color: rgb(236, 114, 114);\r\n    /*border: red solid 2px;*/\r\n    /*padding: 1px;*/\r\n    /*margin: 10px;*/\r\n }"]}
