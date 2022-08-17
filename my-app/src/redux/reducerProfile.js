@@ -3,12 +3,14 @@ const ADD_POST = "ADD-POST";
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 const SET_STATUS = "SET_STATUS";
 const DELETE_POST = "DELETE_POST";
+const SAVE_PHOTO_SUCCES= "SAVE PHOTO_SUCCES";
+
 let initialState = {
   postData: [
     { id: 1, message: "Hi, how  are you?", likesCount: 0 },
     { id: 2, message: "It's my first post", likesCount: 11 },
   ],
-  newPostText: "React-message",
+  newPostText: "Write-message",
   profile: null,
   status: "",
 };
@@ -39,9 +41,15 @@ const reducerProfile = (state = initialState, action) => {
       return { ...state, profile: action.profile };
     }
     case DELETE_POST:
-      return {...state, posts: state.posts.filter(p => p.id !== action.postId)}
+      return {...state, posts: state.posts.filter(p => p.id !== action.postId)};
+      case SAVE_PHOTO_SUCCES:
+        return {...state, profile: { ...state.profile, photos: action.photos}}
     default:
       return state;
+
+
+
+
   }
 };
 
@@ -54,6 +62,8 @@ export const setUsersProfile = (profile) => ({
   profile,
 });
 export const setStatus = (status) => ({type: SET_STATUS, status})
+export const savePhotoSucces = (photos) => ({type: SAVE_PHOTO_SUCCES, photos})
+
 export const getUsersProfile = (userId) => {
   return async (dispatch) => {
    let response = await  usersApi.getProfile(userId)
@@ -75,6 +85,14 @@ export const updateStatus = (status) => async (dispatch) => {
               dispatch(setStatus(status));
           }
       };
+
+      export const savePhoto = (photos) => async (dispatch) => {
+        let response = await profileAPI.savePhoto(photos)
+            
+                if (response.data.resultCode === 0) {
+                    dispatch(savePhotoSucces(response.data.data.photos));
+                }
+            };
 
 export const deletePost = (postId) => ({type: DELETE_POST, postId})
 export default reducerProfile;
