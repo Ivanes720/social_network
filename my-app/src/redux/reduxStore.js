@@ -5,7 +5,6 @@ import reducerUsers from "./reducerUsers";
 import authReducer from "./authReducer";
 import appReducer from "./appReducer";
 import thunkMiddleware from "redux-thunk";
-import thunk from 'redux-thunk';
 //import { Formik } from 'formik';
 //import reducerSideBar from "./reducerSidebar";
 

@@ -1,3 +1,14 @@
 .descriptionBlock {
     padding: 10px;
 }
+.profileBlock {
+    font-weight: normal;
+ }
+
+ .contact {
+    padding-left: 20px;
+ }
+
+ .buttonCancel {
+    margin-left: 13px;
+ }

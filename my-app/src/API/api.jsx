@@ -46,19 +46,27 @@ export const profileAPI={
         "Content-Type" : "multipart/form-data"
       }
     })},
+    saveProfile(profile) {
+      return instance.put(`profile`, profile );
+  }
 
 }
 export const authApi={
   me() {
-    return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`);
+    return instance.get(`auth/me`);
   },
-  login(email, password, rememberMe=false) {
+  login(values) {
     return instance.post(`auth/login`,
-    {email, password, rememberMe});
+   values);
   },
   logout() {
     return instance.delete(`auth/login`
     );
   },
 
+}
+export const securityApi={
+  getCaptchaApi() {
+    return instance.get(`security/get-captcha-url`);
+  }
 }

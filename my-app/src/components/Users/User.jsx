@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import classes from "../Users/users.module.css";
 import userPhoto from "../../assetc/img/download.png";
-let User = ({user, followingInProgress, unfollow, follow, ...props}) => {
+let User = ({user, followingInProgress, unfollow, follow}) => {
 
   return (
        
@@ -30,7 +30,7 @@ let User = ({user, followingInProgress, unfollow, follow, ...props}) => {
                 <button
                   disabled={followingInProgress.some((id) => id === user.id)}
                   onClick={() => {
-                    follow(props.user.id)
+                    follow(user.id)
 
                   }}
                 >
