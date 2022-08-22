@@ -3,7 +3,7 @@ import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import {ErrorMessageWrapper, validateEmailField} from "../../components/utils/validators/validators";
 import {connect} from "react-redux";
-import {login} from "../../redux/authReducer";
+import {login} from "../../redux/reducerAuth";
 import {Navigate} from "react-router-dom";
 import classes from '../../components/utils/validators/ErrorMessage.module.css';
 import classesLogin from '../Login/login.module.css'

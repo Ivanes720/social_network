@@ -1,4 +1,4 @@
-import {getAuthUserData} from "./authReducer"
+import {getAuthUserData} from "./reducerAuth"
 const INITIALIZED_SUCCES = "INITIALIZED_SUCCES";
 
 let initialState = {

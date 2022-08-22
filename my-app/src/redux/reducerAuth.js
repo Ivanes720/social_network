@@ -30,12 +30,14 @@ const getCaptchaUrlSuccess = (captchaUrl) => ({
   payload: { captchaUrl },
 });
 export const getAuthUserData = (id, login, email) => {
+
+
   return async (dispacth) => {
     let response = await authApi.me(id, login, email);
     if (response.data.resultCode === 0) {
       let { id, login, email } = response.data.data;
       dispacth(setAuthUserData(id, email, login, true));
-    }
+    };
   };
 };
 
